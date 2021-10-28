@@ -11,14 +11,27 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/static/style.css">
+        <script>0</script>
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
-        
 
-        <script src="" async defer></script>
+        <h2>Flash Cards</h2>
+
+        <ul>
+        {% for card in cards %}
+
+            <li>
+                <a href="{{ url_for('card', index=loop.index0) }}">
+                    {{ card.question }}
+                </a>
+            </li>            
+
+        {% endfor %}
+        </ul>
+
+        <!-- <script src="/static/app.js" async defer></script> -->
     </body>
 </html>

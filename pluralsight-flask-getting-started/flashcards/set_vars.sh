@@ -1,0 +1,2 @@
+export FLASK_APP=flashcards.py
+export FLASK_ENV=development
