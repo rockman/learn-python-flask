@@ -3,3 +3,14 @@
     padding: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+form[name='add_card'] {
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-gap: 5px;
+}
+
+form[name='add_card'] label {
+    text-align: right;
+}

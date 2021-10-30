@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Flashcards in Flask</title>
+        <title>Remove Card</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/static/style.css">
@@ -18,30 +18,15 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <h2>Flash Cards</h2>
+        <h1>Remove Flash Card</h1>
+        Question: {{ card.question }}<br>
+        Answer: {{ card.answer }}
+        
+        <form method="post">
+            Are you sure?<br>
+            <button>Yes</button>
+            <a href="{{ url_for('welcome') }}">No</a>
+        </form>
 
-        <ul>
-        {% for card in cards %}
-
-            <li>
-                <a href="{{ url_for('card', index=loop.index0) }}">
-                    {{ card.question }}
-                </a>
-                -
-                (
-                    <a href="{{ url_for('remove', index=loop.index0) }}">
-                        remove
-                    </a>
-                )
-            </li>         
-
-        {% endfor %}
-        </ul>
-
-        <p style="margin-top: 50px;">
-            <a href="{{ url_for('add_card') }}">Add Card</a>
-        </p>
-
-        <!-- <script src="/static/app.js" async defer></script> -->
     </body>
 </html>
