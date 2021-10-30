@@ -1,42 +1,26 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Flash Card</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/style.css">
-        <script>0</script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+{% extends 'base.html' %}
+{% block title %}Flash Card{% endblock %}
+{% block content %}
 
-        <h1>Flash Card</h1>
-        Question: {{ card.question }}<br>
-        Answer: {{ card.answer }}
-        
-        <p style="margin-top: 20px;">
-            <a href="{{ url_for('welcome') }}">Home</a><br>
-            {% if not is_first %}
-            <a id="link-prev" data-prev="{{ index - 1 }}" href="{{ url_for('card', index=index - 1) }}">prev</a>
-            {% endif %}
-            {% if not is_first and not is_last %}
-            &nbsp;
-            |
-            &nbsp;
-            {% endif %}
-            {% if not is_last %}
-            <a id="link-next" data-next="{{ index + 1 }}" href="{{ url_for('card', index=index + 1) }}">next</a>
-            {% endif %}
-        </p>
+<h1>Flash Card</h1>
+Question: {{ card.question }}<br>
+Answer: {{ card.answer }}
 
-        <script src="/static/app.js" async defer></script>
-    </body>
-</html>
+<p style="margin-top: 20px;">
+    <a href="{{ url_for('welcome') }}">Home</a><br>
+    {% if not is_first %}
+    <a id="link-prev" data-prev="{{ index - 1 }}" href="{{ url_for('card', index=index - 1) }}">prev</a>
+    {% endif %}
+    {% if not is_first and not is_last %}
+    &nbsp;
+    |
+    &nbsp;
+    {% endif %}
+    {% if not is_last %}
+    <a id="link-next" data-next="{{ index + 1 }}" href="{{ url_for('card', index=index + 1) }}">next</a>
+    {% endif %}
+</p>
+
+<script src="/static/app.js" async defer></script>
+
+{% endblock %}

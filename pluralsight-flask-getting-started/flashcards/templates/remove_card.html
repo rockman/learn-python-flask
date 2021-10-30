@@ -1,32 +1,13 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Remove Card</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/style.css">
-        <script>0</script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+{% extends 'base.html' %}
+{% block title %}Remove Card{% endblock %}
+{% block content %}
+<h1>Remove Flash Card</h1>
+Question: {{ card.question }}<br>
+Answer: {{ card.answer }}
 
-        <h1>Remove Flash Card</h1>
-        Question: {{ card.question }}<br>
-        Answer: {{ card.answer }}
-        
-        <form method="post">
-            Are you sure?<br>
-            <button>Yes</button>
-            <a href="{{ url_for('welcome') }}">No</a>
-        </form>
-
-    </body>
-</html>
+<form method="post">
+    Are you sure?<br>
+    <button>Yes</button>
+    <a href="{{ url_for('welcome') }}">No</a>
+</form>
+{% endblock %}

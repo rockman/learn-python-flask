@@ -1,47 +1,28 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Flashcards in Flask</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/style.css">
-        <script>0</script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+{% extends 'base.html' %}
+{% block title %}Flashcards in Flask{% endblock %}
+{% block content %}
+<h2>Flash Cards</h2>
 
-        <h2>Flash Cards</h2>
+<ul>
+{% for card in cards %}
 
-        <ul>
-        {% for card in cards %}
+    <li>
+        <a href="{{ url_for('card', index=loop.index0) }}">
+            {{ card.question }}
+        </a>
+        -
+        (
+            <a href="{{ url_for('remove', index=loop.index0) }}">
+                remove
+            </a>
+        )
+    </li>         
 
-            <li>
-                <a href="{{ url_for('card', index=loop.index0) }}">
-                    {{ card.question }}
-                </a>
-                -
-                (
-                    <a href="{{ url_for('remove', index=loop.index0) }}">
-                        remove
-                    </a>
-                )
-            </li>         
+{% endfor %}
+</ul>
 
-        {% endfor %}
-        </ul>
+<p style="margin-top: 50px;">
+    <a href="{{ url_for('add_card') }}">Add Card</a>
+</p>
 
-        <p style="margin-top: 50px;">
-            <a href="{{ url_for('add_card') }}">Add Card</a>
-        </p>
-
-        <!-- <script src="/static/app.js" async defer></script> -->
-    </body>
-</html>
+{% endblock %}
