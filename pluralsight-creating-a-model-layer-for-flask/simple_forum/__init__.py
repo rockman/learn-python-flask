@@ -79,6 +79,10 @@ def edit():
                 db.session.add(post)
                 db.session.commit()
 
+        elif 'delete' == request.form.get('action'):
+            db.session.delete(post)
+            db.session.commit()
+
         return redirect(url_for('posts'))
 
     if post:
