@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+    margin-top: 5px;
+}
+
+li {
+    margin: 20px 4px 0px 4px;
+    padding: 4px;
+    border-width: 1px;
+    border-style: dotted;
+    border-color: dodgerblue;
+}
+
+div.username {
+    display: flex;
+    justify-content: right;
+    margin-right: 20px;
+}
+
+p.error {
+    color: red;
+}
+
+span.username {
+    font-weight: bold;
+    font-style: italic;
+    margin-right: 4px;
+}
+
+div.username > a {
+    font-size: smaller;
+}
