@@ -1,5 +1,5 @@
 
-from flask.helpers import url_for
+from flask.helpers import flash, url_for
 from werkzeug.utils import redirect
 from simple_forum.db import db
 from simple_forum.models import Post, User
@@ -85,3 +85,31 @@ def edit():
         return render_template('edit.html', post=post)
 
     return redirect(url_for('posts'))
+
+
+@app.route('/create', methods=['GET', 'POST'])
+def create():
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('posts'))
+
+    if request.method == 'POST':
+
+        if 'cancel' == request.form.get('action'):
+            return redirect(url_for('posts'))
+
+        try:
+            post = Post(
+                author_id=user_id,
+                title=request.form.get('title'),
+                body=request.form.get('body')
+            )
+        except ValueError as e:
+            flash(str(e))
+            return render_template('create.html')
+
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('posts'))
+
+    return render_template('create.html')

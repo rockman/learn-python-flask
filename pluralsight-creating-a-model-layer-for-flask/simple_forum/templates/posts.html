@@ -11,7 +11,11 @@
 {% else %}
     <a href="{{ url_for('login') }}">login</a>
 {% endif %}
-</div>    
+</div>
+
+{% if username %}
+    <a href="{{ url_for('create') }}">create</a>
+{% endif %}
 
 {% if posts %}
 

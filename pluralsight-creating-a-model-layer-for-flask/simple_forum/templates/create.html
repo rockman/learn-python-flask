@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+    Create
+{% endblock %}
+{% block content %}
+
+<form method="post">
+    <label for="title"></label>
+    <input type="text" name="title" placeholder="Enter title here">
+    <br>
+    <label for="body"></label>
+    <input type="text" name="body" placeholder="Enter body here">
+    <br>
+    <button name="action" value="save">Save</button>
+    <button name="action" value="cancel">Cancel</button>
+</form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<a href="{{ url_for('posts') }}">Home</a>
+    
+{% endblock %}

@@ -35,3 +35,7 @@ span.username {
 div.username > a {
     font-size: smaller;
 }
+
+ul.flashes {
+    color: red;
+}
