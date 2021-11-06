@@ -1,17 +1,19 @@
 
-from flask.helpers import flash, url_for
-from werkzeug.utils import redirect
+from re import A
 from simple_forum.db import db
 from simple_forum.models import Post, User
 
-import datetime
+from flask import Flask, render_template, session, request, flash, url_for, redirect
+from flask_migrate import Migrate
 
-from flask import Flask, render_template, session, request
+import datetime
 
 
 app = Flask(__name__)
 app.config.from_object('simple_forum.config')
 db.init_app(app)
+
+Migrate(app, db, render_as_batch=True)
 
 
 @app.template_filter('posts_length_string')
@@ -33,13 +35,12 @@ def format_date(dt):
 @app.route('/')
 def posts():
     user_id = session.get('user_id')
-    username = session.get('username')
+    user = User.query.filter_by(id=user_id).first()
     posts = Post.query.all()
     return render_template(
         'posts.html', 
         posts=posts,
-        user_id=user_id,
-        username=username)
+        user=user)
 
 
 @app.route('/login', methods = ['GET', 'POST'])
@@ -48,7 +49,6 @@ def login():
         user = User.query.filter_by(name=request.form['username']).first()
         if user:
             session['user_id'] = user.id
-            session['username'] = user.name
             return redirect(url_for('posts'))
         else:
             return render_template('login.html', error=True)
@@ -58,7 +58,6 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
-    session.pop('username', None)
     return redirect(url_for('posts'))
 
 

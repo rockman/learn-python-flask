@@ -5,8 +5,8 @@
 <h1>Simple Forum</h1>
 
 <div class="username">
-{% if username %}
-    <span class="username">{{ username }}</span>
+{% if user %}
+    <span class="username">{{ user.name }}</span>
     <a href="{{ url_for('logout') }}">logout</a>
 {% else %}
     <a href="{{ url_for('login') }}">login</a>
@@ -28,7 +28,8 @@
             <h3>{{ post.title }}</h3>
             <p>
                 <em>Created: </em>{{ post.created|format_date }}
-                {% if username and user_id == post.author_id %}
+                by {{ post.author.name }}
+                {% if user and user.id == post.author_id %}
                     <a href="{{ url_for('edit', post_id=post.id) }}">edit</a>
                 {% endif %}
             </p>
