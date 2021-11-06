@@ -1,7 +1,7 @@
 
 from re import A
 from simple_forum.db import db
-from simple_forum.models import Post, User
+from simple_forum.models import Post, User, Tag
 
 from flask import Flask, render_template, session, request, flash, url_for, redirect
 from flask_migrate import Migrate
@@ -9,11 +9,17 @@ from flask_migrate import Migrate
 import datetime
 
 
-app = Flask(__name__)
-app.config.from_object('simple_forum.config')
-db.init_app(app)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('simple_forum.config')
+    db.init_app(app)
 
-Migrate(app, db, render_as_batch=True)
+    Migrate(app, db, render_as_batch=True)
+
+    return app
+
+
+app = create_app()
 
 
 @app.template_filter('posts_length_string')
