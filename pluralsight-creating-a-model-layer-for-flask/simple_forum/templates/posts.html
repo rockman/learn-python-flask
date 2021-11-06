@@ -33,6 +33,13 @@
                     <a href="{{ url_for('edit', post_id=post.id) }}">edit</a>
                 {% endif %}
             </p>
+            {% if post.tags %}
+            <ul>
+                {% for tag in post.tags %}
+                <li>{{ tag.name }}</li>
+                {% endfor %}
+            </ul>                
+            {% endif %}
             <p>
                 {{ post.body }}
             </p>
