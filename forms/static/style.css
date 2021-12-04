@@ -9,3 +9,22 @@ body
     font-family: sans-serif;
 }
 
+.links
+{
+    margin-left: 20px;
+}
+
+.error
+{
+    color: red;
+}
+
+.info
+{
+    color: green;
+}
+
+body
+{
+    display: block;
+}
