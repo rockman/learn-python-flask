@@ -23,6 +23,27 @@
             {% endfor %}
         </ul>
     {% endif %}
+    <br>
+
+    {{ form.category.label }}{{ form.category }}
+    {% if form.category.errors %}
+        <ul class="error">
+            {% for error in form.category.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
+
+    {{ form.subcategory.label }}{{ form.subcategory }}
+    {% if form.subcategory.errors %}
+        <ul class="error">
+            {% for error in form.subcategory.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
 
     <input type="submit" value="Submit">
 </form>
