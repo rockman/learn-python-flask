@@ -3,6 +3,7 @@ from flask import Flask, render_template, flash, redirect, url_for, request, abo
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField
 from wtforms.validators import InputRequired, DataRequired, ValidationError
+from werkzeug.utils import escape
 
 
 app = Flask(__name__)
@@ -50,6 +51,7 @@ def home():
 @app.route('/basic', methods=['GET', 'POST'])
 def basic():
     form = BasicForm()
+    print(f'Name=[{escape(form.name.data)}]')
 
     form.category.choices = list(category_data)
 
