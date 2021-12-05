@@ -36,6 +36,8 @@ class BasicForm(FlaskForm):
         if not options:
             raise ValidationError('Bad category')
 
+        options = [i[0] for i in options]
+
         if field.data not in options:
             raise ValidationError('Subcategory not valid for category')
 
