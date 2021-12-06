@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Custom Price Widget Form</h1>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% if messages %}
+<ul class="flash">
+    {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    
+    {{ form.price.label }}
+    {{ form.price }}
+    {% if form.price.errors %}
+        <ul class="error">
+            {% for error in form.price.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
+
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

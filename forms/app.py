@@ -1,9 +1,11 @@
 
 from flask import Flask, render_template, flash, redirect, url_for, request, abort, jsonify
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField
+from wtforms import StringField, SelectField, DecimalField
+from wtforms.widgets import Input
 from wtforms.validators import InputRequired, DataRequired, ValidationError
 from werkzeug.utils import escape
+from markupsafe import Markup
 
 
 app = Flask(__name__)
@@ -41,6 +43,35 @@ class BasicForm(FlaskForm):
 
         if field.data not in options:
             raise ValidationError('Subcategory not valid for category')
+
+
+class PriceInput(Input):
+    input_type = "number"
+
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault("id", field.id)
+        kwargs.setdefault("type", self.input_type)
+        kwargs.setdefault("step", "0.01")
+        if "value" not in kwargs:
+            kwargs["value"] = field._value()
+        flags = getattr(field, "flags", {})
+        for k in dir(flags):
+            if k in self.validation_attrs and k not in kwargs:
+                kwargs[k] = getattr(flags, k)
+        return Markup("""
+            <div style='display: inline-block'>
+                <span>$</span>
+                <input %s>
+            </div>
+        """ % self.html_params(name=field.name, **kwargs))
+
+
+class PriceField(DecimalField):
+    widget = PriceInput()
+
+
+class PriceForm(FlaskForm):
+    price = PriceField("Price")
 
 
 @app.route('/')
@@ -89,3 +120,18 @@ def subcategories(category):
 
 def get_subcategories_for_category(category):
     return [i[1:] for i in subcategory_data if i[0] == category]
+
+
+@app.route('/price', methods=['GET', 'POST'])
+def price():
+    form = PriceForm()
+
+    if form.validate_on_submit():
+        print(f'price={form.price.data}({type(form.price.data)})')
+        flash('Form ok!', 'info')
+        return redirect(url_for('price'))
+
+    if form.errors:
+        flash('Errors exist', 'error')
+
+    return render_template('price.html', form=form)
