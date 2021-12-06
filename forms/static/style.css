@@ -24,6 +24,11 @@ body
     color: green;
 }
 
+.form-errors
+{
+    background-color: lightcoral;
+}
+
 body
 {
     display: block;

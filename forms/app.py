@@ -128,10 +128,6 @@ def price():
 
     if form.validate_on_submit():
         print(f'price={form.price.data}({type(form.price.data)})')
-        flash('Form ok!', 'info')
         return redirect(url_for('price'))
-
-    if form.errors:
-        flash('Errors exist', 'error')
 
     return render_template('price.html', form=form)
